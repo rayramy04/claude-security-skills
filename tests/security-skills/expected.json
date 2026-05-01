@@ -1,0 +1,78 @@
+{
+  "easy_vuln": {
+    "total": 6,
+    "files": [
+      { "file": "fixtures/vuln/nosql-injection.ts", "category": "injection" },
+      { "file": "fixtures/vuln/hardcoded-key.ts", "category": "hardcoded_secret", "count": 2 },
+      { "file": "fixtures/vuln/xss.tsx", "category": "xss" },
+      { "file": "fixtures/vuln/xss.tsx", "category": "code_execution" },
+      { "file": "fixtures/vuln/jwt-bypass.ts", "category": "auth_bypass", "count": 2 }
+    ],
+    "safe": [
+      { "file": "fixtures/safe/parameterized-query.ts", "expected": "no_finding" },
+      { "file": "fixtures/safe/env-auth.ts", "expected": "no_finding" }
+    ]
+  },
+  "hard_vuln": {
+    "total": 5,
+    "files": [
+      { "file": "fixtures/hard-vuln/fake-escape.ts", "category": "injection", "note": "エスケープ済みに見えるがテンプレートリテラルで埋め込んでいる" },
+      { "file": "fixtures/hard-vuln/indirect-xss.tsx", "category": "xss", "note": "ヘルパー関数経由のXSS" },
+      { "file": "fixtures/hard-vuln/ssrf.ts", "category": "ssrf" },
+      { "file": "fixtures/hard-vuln/pii-logging.ts", "category": "pii_logging" },
+      { "file": "fixtures/hard-vuln/authz-bypass.ts", "category": "authz_bypass" }
+    ],
+    "safe": [
+      { "file": "fixtures/hard-safe/sanitized-html.tsx", "expected": "no_finding", "note": "DOMPurify済み" },
+      { "file": "fixtures/hard-safe/non-user-exec.ts", "expected": "no_finding", "note": "ユーザー入力がexecに渡らない" }
+    ]
+  },
+  "attacker_vuln": {
+    "total": 6,
+    "note": "単一ファイル解析では見逃しやすいパターン",
+    "files": [
+      {
+        "file": "fixtures/attacker/01-mass-assignment.ts",
+        "category": "mass_assignment",
+        "difficulty": "medium-hard",
+        "note": "name バリデーション後に全フィールド spread"
+      },
+      {
+        "file": "fixtures/attacker/02-second-order-injection.ts",
+        "category": "second_order_injection",
+        "difficulty": "hard",
+        "note": "保存時は安全だが取り出して使う時に再インジェクション"
+      },
+      {
+        "file": "fixtures/attacker/03a-middleware.ts + 03b-analytics-route.ts",
+        "category": "cross_file_authz_bypass",
+        "difficulty": "very-hard",
+        "note": "2ファイル合わせて初めて脆弱性が見える。単体では無害"
+      },
+      {
+        "file": "fixtures/attacker/04-open-redirect.ts",
+        "category": "open_redirect",
+        "difficulty": "medium",
+        "note": "OAuth コールバック後の state パラメーター未検証"
+      },
+      {
+        "file": "fixtures/attacker/05-cors-credentials.ts",
+        "category": "cors_misconfiguration",
+        "difficulty": "hard",
+        "note": "Origin 反射 + Credentials:true の組み合わせ"
+      }
+    ],
+    "safe": [
+      {
+        "file": "fixtures/attacker-safe/safe-redirect.ts",
+        "expected": "no_finding",
+        "note": "allowlist で pathname のみ許可"
+      },
+      {
+        "file": "fixtures/attacker-safe/safe-cors.ts",
+        "expected": "no_finding",
+        "note": "Origin ホワイトリスト検証済み"
+      }
+    ]
+  }
+}

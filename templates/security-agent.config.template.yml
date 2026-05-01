@@ -1,0 +1,26 @@
+target:
+  base_url: "${STAGING_URL:-http://localhost:3000}"
+  auth:
+    type: none  # 認証が必要な場合: bearer / cookie / basic
+
+scope:
+  include:
+    - /api           # スキャン対象エンドポイントを列挙
+    # - /api/users
+    # - /api/items
+  exclude:
+    # - /api/files/download  # バイナリレスポンスはスキップ推奨
+
+agents:
+  - owasp_top10     # 常に有効（OWASP Top 10 の基本チェック）
+  - auth_bypass     # JWT / OAuth / Cookie の認証バイパステスト
+  - injection       # SQL / NoSQL / コマンドインジェクション
+  # - prompt_injection  # AI 機能がある場合に有効化
+  # - multi_tenant      # マルチテナント SaaS に有効化
+  # - file_exposure     # ファイルアップロード機能がある場合
+
+report:
+  format: file
+  output_path: ./security-reports/security-scan-report.md  # .gitignore に追加推奨
+
+severity_gate: high  # high 以上の発見で CI fail

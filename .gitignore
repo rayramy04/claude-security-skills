@@ -1,0 +1,17 @@
+# セキュリティスキャン結果（実プロジェクト固有の情報を含む可能性）
+security-report.md
+security-report-full.md
+security-reports/
+coverage-report.yml
+coverage-report-full.yml
+
+# プロジェクト固有の設定（テンプレートは templates/ を使用）
+security-agent.config.yml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
