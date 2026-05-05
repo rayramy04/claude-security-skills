@@ -1,5 +1,5 @@
 ---
-description: PR・ブランチの変更差分（git diff）を静的解析してセキュリティ脆弱性を検出する。開発中・PRレビュー時に使用。手動呼び出し専用: /security-review
+description: "PR・ブランチの変更差分（git diff）を静的解析してセキュリティ脆弱性を検出する。開発中・PRレビュー時に使用。手動呼び出し専用: /security-review"
 disable-model-invocation: true
 ---
 
