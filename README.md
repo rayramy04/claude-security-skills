@@ -15,10 +15,16 @@ Claude Code 用セキュリティスキル3種と、それを評価するテス�
 ## インストール
 
 ```bash
-cp commands/*.md ~/.claude/commands/
+# gh skill を使う場合（推奨・GitHub CLI v2.90.0 以上）
+gh skill install sabakan0123/claude-security-skills
 ```
 
 Claude Code を再起動すると `/security-review`、`/full-scan`、`/security-scan` が使えるようになります。
+
+> **手動インストールの場合（`gh skill` が使えない環境）**
+> ```bash
+> cp commands/*.md ~/.claude/commands/
+> ```
 
 詳細な設定手順は [templates/security-skills-setup.md](templates/security-skills-setup.md) を参照してください。
 
@@ -139,10 +145,17 @@ Claude Code で以下を実行します：
 
 ```
 claude-security-skills/
-├── commands/
-│   ├── security-review.md        # /security-review スキル本体
-│   ├── full-scan.md              # /full-scan スキル本体
-│   └── security-scan.md         # /security-scan スキル本体
+├── skills/                        # gh skill install で使用（推奨）
+│   ├── security-review/
+│   │   └── SKILL.md              # /security-review スキル本体
+│   ├── full-scan/
+│   │   └── SKILL.md              # /full-scan スキル本体
+│   └── security-scan/
+│       └── SKILL.md              # /security-scan スキル本体
+├── commands/                      # 手動インストール用（legacy）
+│   ├── security-review.md
+│   ├── full-scan.md
+│   └── security-scan.md
 ├── templates/
 │   ├── security-agent.config.template.yml  # /security-scan 設定テンプレート
 │   └── security-skills-setup.md           # 新プロジェクト導入手順
