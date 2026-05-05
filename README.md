@@ -12,19 +12,51 @@ Claude Code 用セキュリティスキル3種と、それを評価するテス�
 
 3スキルを組み合わせることで、開発サイクル全体をカバーします。
 
-## インストール
+## インストール（`gh skill` で1コマンド）
+
+GitHub 公式の `gh skill` コマンドに対応しているので、1行で導入できます。
 
 ```bash
-# gh skill を使う場合（推奨・GitHub CLI v2.90.0 以上）
 gh skill install sabakan0123/claude-security-skills
 ```
 
-Claude Code を再起動すると `/security-review`、`/full-scan`、`/security-scan` が使えるようになります。
+実行すると、対話プロンプトでインストール先のエージェント（Claude Code / Cursor / Codex 等）とスコープ（ユーザー全体 / プロジェクト単位）を聞かれます。Claude Code の場合は `~/.claude/skills/` 配下に3つのスキルが配置されます。
 
-> **手動インストールの場合（`gh skill` が使えない環境）**
-> ```bash
-> cp commands/*.md ~/.claude/commands/
-> ```
+> [!NOTE]
+> `gh skill` は GitHub CLI **v2.90.0 以上** が必要です。
+> アップグレード: `brew upgrade gh`（macOS）または [GitHub CLI releases](https://github.com/cli/cli/releases) から手動インストール。
+
+### 中身を確認してから入れたい人へ
+
+セキュリティ系のスキルを「中身も見ずに」入れるのは正直オススメできないので、`preview` で先に確認するのを推奨します。
+
+```bash
+# SKILL.md の中身を表示するだけ（インストールはされない）
+gh skill preview sabakan0123/claude-security-skills
+```
+
+### バージョンを固定したい場合
+
+CI/CD に組み込む場合は `--pin` でタグを固定してください。
+
+```bash
+gh skill install sabakan0123/claude-security-skills --pin v0.2.0
+```
+
+`gh skill update` でも勝手に更新されなくなります。
+
+### アップデート
+
+```bash
+gh skill update --dry-run  # 何が更新されるか先に確認
+gh skill update            # 実行
+```
+
+### 手動インストール（`gh skill` が使えない環境）
+
+```bash
+cp commands/*.md ~/.claude/commands/
+```
 
 詳細な設定手順は [templates/security-skills-setup.md](templates/security-skills-setup.md) を参照してください。
 
