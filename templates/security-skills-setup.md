@@ -3,10 +3,26 @@
 ## 1. スキルファイルをインストール
 
 ```bash
-cp commands/*.md ~/.claude/commands/
+gh skill install sabakan0123/claude-security-skills
 ```
 
-Claude Code を再起動すると `/security-review`、`/full-scan`、`/security-scan` が使えるようになります。
+実行すると、対話プロンプトでインストール先のエージェントとスコープを聞かれます。Claude Code の場合は `~/.claude/skills/` 配下に3つのスキルが配置されます。
+
+> [!NOTE]
+> `gh skill` は GitHub CLI **v2.90.0 以上** が必要です。
+> アップグレード: `brew upgrade gh`（macOS）または [GitHub CLI releases](https://github.com/cli/cli/releases) から手動インストール。
+
+インストール前に中身を確認したい場合：
+
+```bash
+gh skill preview sabakan0123/claude-security-skills
+```
+
+**手動インストールの場合（`gh skill` が使えない環境）:**
+
+```bash
+cp commands/*.md ~/.claude/commands/
+```
 
 ## 2. `/security-scan` の設定（ランタイム検証を使う場合）
 
